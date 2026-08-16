@@ -60,7 +60,9 @@
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run build",
-    "test": "node --check lib/client.js && node scripts/client-sim.mjs"
+    "test": "node --check lib/client.js && node scripts/client-sim.mjs",
+    "postinstall": "node scripts/fix-spawn-helper.mjs",
+    "fix:spawn-helper": "node scripts/fix-spawn-helper.mjs"
   },
   "keywords": [
     "deepseek-harness",

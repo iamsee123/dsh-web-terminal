@@ -73,7 +73,7 @@ node scripts/browser-diag.mjs  # Playwright 打开真实 GUI，点击「终端�
 
 1. **client 端 external 限制**：只能 external 平台种子词（react 系列）与 shell 自有模块（`@deepseek-ai/*`）。`@xterm/*` 必须**打进 bundle**——否则 ModuleLoader 报 `require("@xterm/xterm") missed the module table`（dsh-ssh 同样打包 xterm）。
 2. **面板高度链**：`[data-dsh-terminal-view]` 是 absolute 容器，直接子级 `.dshTermView` 必须 `height: 100%`，否则内部 `.dshTermPanel { height: 100% }` 因父级高度 auto 失效，flex 链崩溃，终端被压成 2px 细条。
-3. **node-pty spawn-helper 权限**：prebuild 的 `prebuilds/<platform>/spawn-helper` 可能丢失可执行位（`posix_spawnp failed`），需 `chmod +x node_modules/node-pty/prebuilds/*/spawn-helper`。注意 dsh 文件沙箱内 node-pty spawn 会被拦截，冒烟测试需在真实 dsh 进程中跑。
+3. **node-pty spawn-helper 权限**：prebuild 的 `prebuilds/<platform>/spawn-helper` 可能丢失可执行位（`posix_spawnp failed`），执行 `pnpm run fix:spawn-helper` 一键修复（`pnpm install` 时也会通过 postinstall 自动执行）。注意 dsh 文件沙箱内 node-pty spawn 会被拦截，冒烟测试需在真实 dsh 进程中跑。
 
 ## 验证
 

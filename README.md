@@ -81,7 +81,7 @@ The build script embeds `node_modules/@xterm/xterm/css/xterm.css` into `src/clie
 
 1. **Client externals**: only platform seed words (react family) and shell-own modules (`@deepseek-ai/*`) may stay external. `@xterm/*` must be **bundled** — otherwise the ModuleLoader reports `require("@xterm/xterm") missed the module table` (dsh-ssh bundles xterm too).
 2. **Panel height chain**: `[data-dsh-terminal-view]` is an absolute container; its direct child `.dshTermView` needs `height: 100%` or the inner `.dshTermPanel { height: 100% }` resolves against an auto-height parent and the whole flex chain collapses (terminal squashed to a 2px strip).
-3. **node-pty spawn-helper permissions**: the prebuilt `prebuilds/<platform>/spawn-helper` may lose its executable bit (`posix_spawnp failed`); run `chmod +x node_modules/node-pty/prebuilds/*/spawn-helper`. Note node-pty spawn is blocked inside the dsh file sandbox — run smoke tests against a real dsh process.
+3. **node-pty spawn-helper permissions**: the prebuilt `prebuilds/<platform>/spawn-helper` may lose its executable bit (`posix_spawnp failed`); run `pnpm run fix:spawn-helper` (also runs automatically on `pnpm install` via postinstall). Note node-pty spawn is blocked inside the dsh file sandbox — run smoke tests against a real dsh process.
 
 ## Verify
 
