@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output (rebuilt by `pnpm run build` / prepublishOnly)
+lib/
+.build-tmp/
+src/client/xterm-css.ts
+
+# logs / OS
+*.log
+.DS_Store
+
+# tests
+coverage/
+playwright-report/
+test-results/

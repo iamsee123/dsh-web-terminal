@@ -1,0 +1,75 @@
+{
+  "name": "dsh-web-terminal",
+  "description": "Local terminal plugin for the DeepSeek Harness web GUI: a multi-tab xterm.js panel over real node-pty shells, streamed through a WebSocket route on the host process. Hot-pluggable — mounted via the web profile bundle list, no dsh source changes.",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib",
+    "src",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "node-pty": "^1.1.0",
+    "ws": "^8.18.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-host-webserver": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-settings": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.6",
+    "@types/node": "^22.20.0",
+    "@types/react": "~18.3.1",
+    "@types/react-dom": "^18.3.5",
+    "@types/ws": "^8.5.13",
+    "esbuild": "^0.25.0",
+    "jsdom": "^25.0.0",
+    "playwright": "^1.62.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "schemastery": "^3.18.0",
+    "typescript": "~5.7.2"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm run build",
+    "test": "node --check lib/client.js && node scripts/client-sim.mjs"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "terminal",
+    "xterm",
+    "node-pty",
+    "pty",
+    "web-terminal"
+  ]
+}

@@ -1,0 +1,12 @@
+# dsh-web-terminal bundle patch: inserts the dual-face plugin row into the web
+# profile roster. Applied as a profile bundle layer (the dsh.bundle.patch
+# manifest field) over dsh-base and dsh-web-app; activate with
+# `dsh plugin --profile web add link:<repo>/packages/dsh-web-terminal`.
+#
+# The row is a bare plugin by package name: the node half (exports ".") runs in
+# the host process (node-pty shell sessions, /api/dsh-web-terminal routes), and the
+# dsh.client declaration in package.json makes the browser half (exports
+# "./client", served at /plugins/terminal/client.js) load in the web GUI.
+- insert:
+    - id: terminal
+      name: 'dsh-web-terminal'

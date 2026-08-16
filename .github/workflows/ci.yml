@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile=false
+        env:
+          # allow native build scripts (node-pty prebuild / esbuild)
+          npm_config_build_from_source: 'false'
+      - run: pnpm run typecheck
+      - run: pnpm run build
+      - run: node --check lib/client.js
+      - run: pnpm exec node scripts/client-sim.mjs
